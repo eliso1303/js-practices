@@ -6,7 +6,7 @@ function forEach(arr, fun) {
             fun(arr[i], i, arr);
         }
     } else {
-        throw new Error("Please enter ")
+        throw new Error("Please enter arguments");
     }
 }
 
