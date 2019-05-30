@@ -9,12 +9,12 @@ function filter(arr, fun) {
                 newArray.push(arr[i]);
             }
         }
-        console.log(newArray);
+        return newArray;
     } else {
         throw new Error("Please enter arguments");
     }
 }
 
 filter(array, function(item, i, arr) {
-    return item > 0;
+    return item > 1;
 });
