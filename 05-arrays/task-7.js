@@ -1,8 +1,8 @@
 
-var arr = ['abcd', 'abcde', 'ab', 'abc'];
+let arr = ['abcd', 'abcde', 'ab', 'abc'];
 
 // START
-var arrLength = arr.map(function (n) {
+let arrLength = arr.map(function (n) {
     return n.length;
 });
 // FINISH

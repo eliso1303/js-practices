@@ -5,7 +5,7 @@ function getDivisors(number) {
         if(number === 0){
             throw new Error("parameter can't be a 0");
         } else {
-            for(var i=0; i<=number; i++){
+            for(let i=0; i<=number; i++){
                 if(number%i === 0){
                     divisors.push(i);
                 }

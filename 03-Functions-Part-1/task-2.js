@@ -1,4 +1,4 @@
-var f = function () {
+const f = function () {
     let sum = 0;
     for (argument in arguments) {
         if (typeof arguments[argument] === 'number') {

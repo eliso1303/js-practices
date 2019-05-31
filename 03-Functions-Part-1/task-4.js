@@ -1,4 +1,4 @@
-var f = function (number) {
+const f = function (number) {
     let days = ['კვირა', 'ორშაბათი', 'სამშაბათი', 'ოთხშაბათი', 'ხუთშაბათი', 'პარასკევი', 'შაბათი'];
     if (typeof number === 'number') {
         if (number >= 1 && number <= 7){

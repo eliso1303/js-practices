@@ -1,4 +1,4 @@
-var f = function(number) {
+const f = function(number) {
     if (typeof number === 'number') {
         return number*number*number;
     } else {

@@ -12,7 +12,7 @@ function isPositive(number){
     }
 }
 
-for(var i=0; i<arr.length;i++){
+for(let i=0; i<arr.length;i++){
     if(isPositive(arr[i])){
         arr2.push(arr[i]);
     }

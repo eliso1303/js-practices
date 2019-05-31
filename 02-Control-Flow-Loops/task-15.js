@@ -1,4 +1,4 @@
-var n=1000, num=0;
+let n=1000, num=0;
 
 
 while(n/2 > 50){

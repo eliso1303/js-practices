@@ -3,7 +3,7 @@ const acc = 0;
 
 function reduce(arr, fun, start) {
     if (arr.length && Array.isArray(arr) && fun && typeof fun === "function" && typeof start === 'string' || typeof start === 'number') {
-        for (var i = 0; i < arr.length; i++) {
+        for (let i = 0; i < arr.length; i++) {
             console.log(fun(start, arr[i], i, arr));
         }
     } else {
