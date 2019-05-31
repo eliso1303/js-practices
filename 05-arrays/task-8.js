@@ -3,7 +3,7 @@ const arr = [[[1, 2], [1, 2]], [[2, 1], [1, 2]]];
 function f(arr) {
     if (Array.isArray(arr) && arr.length !== 0) {
         let sum = 0;
-        let newArr = arr.flat(20);
+        let newArr = arr.flat(Infinity);
         for (let i = 0; i < newArr.length; i++) {
             if (typeof newArr[i] === 'number') {
                 sum += newArr[i];
@@ -19,4 +19,4 @@ function f(arr) {
     }
 }
 
-f(arr); // 12  
+f(arr); // 12 
