@@ -1,7 +1,7 @@
 const array = [1, 2, 3];
 
 function forEach(arr, fun) {
-    if (arr && Array.isArray(arr) && fun && typeof fun === "function") {
+    if (arr.length && Array.isArray(arr) && fun && typeof fun === "function") {
         for (var i = 0; i < arr.length; i++) {
             fun(arr[i], i, arr);
         }

@@ -1,8 +1,7 @@
 const array = [1,2,3];
 
-
 function filter(arr, fun) {
-    if (arr && Array.isArray(arr) && fun && typeof fun === "function") {
+    if (arr.length && Array.isArray(arr) && fun && typeof fun === "function") {
         let newArray = [];
         for (var i = 0; i < arr.length; i++) {
             if(fun(arr[i], i, arr)) {
