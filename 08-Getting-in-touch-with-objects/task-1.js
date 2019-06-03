@@ -1,5 +1,5 @@
 const person = {
-    saleryNum: 1500
+    salaryNum: 1500
 };
 
 Object.defineProperty(person, 'salary', {
@@ -7,9 +7,9 @@ Object.defineProperty(person, 'salary', {
         let d = new Date();
         let monthDays = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
         if (d.getDate() < (monthDays - 20)) {
-            return this.saleryNum + ' Good salery';
+            return 'Good salary';
         } else {
-            return this.saleryNum + ' Bad salery';
+            return 'Bad salary';
         }
     },
 });
