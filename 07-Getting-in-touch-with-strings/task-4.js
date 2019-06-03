@@ -1,7 +1,7 @@
 function extractCurrencyValue(source) {
     if (typeof source === 'string') {
         let newStr = source.slice(1);
-        console.log(typeof +newStr);
+        return typeof +newStr;
     } else {
         throw new Error('Not a string');
     }
