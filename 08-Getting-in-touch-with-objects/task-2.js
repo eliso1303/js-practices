@@ -1,18 +1,23 @@
-const person = {
-    saleryNum: 1500
-};
-
-Object.defineProperty(person, 'salary', {
-    get() {
-        
-    },
-});
+'use strict'
+const person = {};
 
 Object.defineProperty(person, 'rate', {
-    enumerable: false,
+    writable: true,
+    configurable: false,
+    enumerable: false
+});
+
+Object.defineProperty(person, 'salary', {
+    enumerable: true,
     get() {
-        return this.name;
-    },
+        let d = new Date();
+        if (this.rate) {
+            return this.rate * d.getDate();
+        } else {
+            return 0;
+        }
+
+    }
 });
 
 person.rate = 30;
