@@ -1,4 +1,3 @@
-'use strict'
 const person = {};
 
 Object.defineProperty(person, 'rate', {
@@ -16,9 +15,12 @@ Object.defineProperty(person, 'salary', {
         } else {
             return 0;
         }
-
+    },
+    set () {
+        throw new Error('Cannot set property salary');
     }
 });
 
 person.rate = 30;
+person.salary = 30;
 person.salary;
