@@ -1,4 +1,5 @@
 function CoffeeMachine(power, capacity) {
+    const innerPower = power;
     
 	this.setWaterAmount = function(amount) {
 		if (amount < 0) {
@@ -15,7 +16,7 @@ function CoffeeMachine(power, capacity) {
     };
     
     this.getPower = function() {
-        return power;
+        return innerPower;
     }
 }
 
