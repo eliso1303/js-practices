@@ -1,28 +1,39 @@
 function CoffeeMachine(power, capacity) {
-	let waterAmount = 0;
-	let WATER_HEAT_CAPACITY = 4200;
-	
+    let waterAmount = 0;
+    let WATER_HEAT_CAPACITY = 4200;
+
     function getTimeToBoil() {
-		return waterAmount * WATER_HEAT_CAPACITY * 80 / power;
+        return waterAmount * WATER_HEAT_CAPACITY * 80 / power;
     }
-	
-    this.setWaterAmount = function(amount) {
-		if (amount < 0) {
-			throw new Error("Value has to be positive");
-		}
-		if (amount > capacity) {
-			throw new Error("You can't put more water, than " + capacity);
-		}
-		waterAmount = amount;
-	};
-	
+
+    this.setWaterAmount = function (amount) {
+        if (amount < 0) {
+            throw new Error("Value has to be positive");
+        }
+        if (amount > capacity) {
+            throw new Error("You can't put more water, than " + capacity);
+        }
+        waterAmount = amount;
+    };
+
     function onReady() {
-		console.log('Coffee is ready');
+        console.log('Coffee is ready');
     }
-    
-	this.run = function() {
-		setTimeout(onReady, getTimeToBoil());
-	};
+
+    this.run = function () {
+        setTimeout(onReady, getTimeToBoil());
+    };
+
+    this.addWater = function (amount) {
+        let newWaterAmount = waterAmount + amount;
+        if (newWaterAmount < 0) {
+            throw new Error("Value has to be positive");
+        }
+        if (newWaterAmount > capacity) {
+            throw new Error("You can't put more water, than " + capacity);
+        }
+        waterAmount = newWaterAmount
+    }
 }
 
 let coffeeMachine = new CoffeeMachine(100000, 400);
