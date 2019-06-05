@@ -1,40 +1,26 @@
-// Object.prototype.extend = function(source) {
-
-// }
-// const data = {name: 'Pitter1'};
-// const source = {name: 'Pitter', age: 21};
-
-// Object.defineProperty(source, 'rate', {
-//     writable: true,
-//     configurable: false,
-//     enumerable: false
-// });
+const data = { 
+    a: 'a' 
+};
+const source = { 
+    a: 'A',
+    b: 'b' 
+};
 
 Object.defineProperty(Object.prototype, 'extend', {
-    value() {
-        for (prop in p) {
-            {
-            o[prop] = p[prop];
+    value(source) {
+        for (item of Object.getOwnPropertyNames(source)) {
+            if(!data.hasOwnProperty(item)){
+                Object.defineProperty(data, item,  Object.getOwnPropertyDescriptor(source, item));
             }
         }
-    }
+    },
+    enumerable: false
 });
-const data = { name: 'Pitter1' };
-const source = { name: 'Pitter', age: 21 };
 
-// data.extend(source);
 
-// const extend = (o, p) => {
-//     for (prop in p) {
-//         o[prop] = p[prop];
-//     }
+Object.defineProperty(source, 'b', { writable: false, enumerable: false });
 
-//     return o;
-// };
+data.extend(source);
 
-// const source = {name: 'Pitter', age: 21};
-
-// const obj = extend(source, {age: 18});
-
-// console.log(obj);
-// console.log(source)
+console.log(data); // { a: 'a', b: 'b' }
+console.log(Object.getOwnPropertyDescriptor(data, 'b')); // false
