@@ -1,11 +1,14 @@
 Object.defineProperty(Object.prototype, 'mergeDeepRight', {
     value(source) {
-        for (item in source) {
-            if()
-            data[item] = source[item];
-            console.log();
+        for (item in Object.getOwnPropertyNames(source)) {
+            if (typeof item === 'object') {
+                item.toString();
+                data[item].mergeDeepRight(item); 
+            } else {
+                data[item] = item;
+            }
             // if(!data.hasOwnProperty(source[item])){
-                
+
             // }
         }
     }
