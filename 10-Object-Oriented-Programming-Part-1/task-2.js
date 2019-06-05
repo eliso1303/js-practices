@@ -1,5 +1,6 @@
 function CoffeeMachine(power, capacity) {
     const innerPower = power;
+    let waterAmount = 0;
     
 	this.setWaterAmount = function(amount) {
 		if (amount < 0) {
