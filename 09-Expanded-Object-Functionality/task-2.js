@@ -1,18 +1,21 @@
 Object.defineProperty(Object.prototype, 'mergeDeepRight', {
     value(source) {
-        for (item in Object.getOwnPropertyNames(source)) {
-            if (typeof item === 'object') {
-                item.toString();
-                data[item].mergeDeepRight(item); 
-            } else {
-                data[item] = item;
+        for (item of Object.getOwnPropertyNames(source)) {
+            if (this.hasOwnProperty(item)) {
+                if (typeof this[item] !== "object") {
+                    this[item] = source[item];
+                } else {
+                    if (Array.isArray(this[item])) {
+                        this[item] = this[item].concat(source[item]);
+                    } else {
+                        this[item] = this[item].mergeDeepRight(source[item]);
+                    }
+                }
             }
-            // if(!data.hasOwnProperty(source[item])){
-
-            // }
         }
+        return this
     }
-});
+})
 
 const data = {
     name: 'fred',
@@ -25,15 +28,17 @@ const data = {
         }
     }
 };
-data.mergeDeepRight({
-    age: 40,
-    contact: {
-        email: 'baa@example.com',
-        favorite: true,
-        meta: {
-            tags: ['vip']
-        }
-    }
-});
 
-console.log(data);
+let makeString = JSON.stringify(
+    data.mergeDeepRight({
+        age: 40,
+        contact: {
+            email: 'baa@example.com',
+            favorite: true,
+            meta: {
+                tags: ['vip']
+            }
+        }
+    }));
+
+console.log(makeString);
