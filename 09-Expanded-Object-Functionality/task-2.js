@@ -1,6 +1,7 @@
+// 'use strict'
 Object.defineProperty(Object.prototype, 'mergeDeepRight', {
     value(source) {
-        for (item of Object.getOwnPropertyNames(source)) {
+        for (let item of Object.keys(source)) {
             if (this.hasOwnProperty(item)) {
                 if (typeof this[item] !== "object") {
                     this[item] = source[item];
@@ -11,9 +12,13 @@ Object.defineProperty(Object.prototype, 'mergeDeepRight', {
                         this[item] = this[item].mergeDeepRight(source[item]);
                     }
                 }
+            } else {
+                console.log(this);
+                this.item = source[item];
+                // this[item] = source[item];
             }
         }
-        return this
+        return this;
     }
 })
 
@@ -42,3 +47,17 @@ let makeString = JSON.stringify(
     }));
 
 console.log(makeString);
+
+// data will be
+// {
+// 	name: 'fred',
+// 	age: 40,
+// 	contact: {
+// 		email: 'baa@example.com',
+//         favorite: true,
+// 		meta: {
+//             verified: true,
+//             tags: ['vip', 'important']
+//         }
+// 	}
+// }
