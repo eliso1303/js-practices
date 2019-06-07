@@ -1,10 +1,7 @@
 Object.prototype.delay = function(delayTime){
     let self = this;
-    return function(){
-        
-        setTimeout(function(){
-            return self.apply(delay, arguments);
-        }, delayTime);
+    return (...allArgument) => {
+        setTimeout(() => self(...allArgument),delayTime);
     }
 }
 function f() {
@@ -18,3 +15,4 @@ function f2(a, b) {
 }
 f.delay(1000)();
 f2.delay(1000)(1, 2); // print 3 after 1 second
+
