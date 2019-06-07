@@ -33,5 +33,5 @@ function CoffeeMachine(power, capacity) {
 let coffeeMachine = new CoffeeMachine(100000, 400);
 coffeeMachine.addWater(200);
 coffeeMachine.addWater(100);
-coffeeMachine.addWater(300); // You can't put more water, than 400
+coffeeMachine.addWater(300);
 coffeeMachine.run();

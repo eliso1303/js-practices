@@ -50,12 +50,12 @@ function CoffeeMachine(power, capacity) {
 var coffeeMachine = new CoffeeMachine(20000, 500);
 coffeeMachine.setWaterAmount(100);
 
-console.log('Before: ' + coffeeMachine.isRunning()); // Before: false
+console.log('Before: ' + coffeeMachine.isRunning()); 
 
 coffeeMachine.run();
 
-console.log('In progress: ' + coffeeMachine.isRunning()); // In progress: true
+console.log('In progress: ' + coffeeMachine.isRunning());
 
 coffeeMachine.setOnReady(function () {
-    console.log('After: ' + coffeeMachine.isRunning()); // After: false
+    console.log('After: ' + coffeeMachine.isRunning()); 
 });

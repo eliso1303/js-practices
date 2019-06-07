@@ -1,4 +1,3 @@
-// 'use strict'
 Object.defineProperty(Object.prototype, 'mergeDeepRight', {
     value(source) {
         for (let item of Object.keys(source)) {
@@ -13,9 +12,7 @@ Object.defineProperty(Object.prototype, 'mergeDeepRight', {
                     }
                 }
             } else {
-                console.log(this);
                 this.item = source[item];
-                // this[item] = source[item];
             }
         }
         return this;

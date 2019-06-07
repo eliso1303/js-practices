@@ -40,7 +40,7 @@ coffeeMachine.setWaterAmount(150);
 coffeeMachine.setOnReady(function () {
 	let amount = coffeeMachine.getWaterAmount();
 
-	console.log('Coffee is ready: ' + amount + 'ml'); // Coffee is ready: 150 ml
+	console.log('Coffee is ready: ' + amount + 'ml');
 });
 
 coffeeMachine.run();
