@@ -1,7 +1,7 @@
 Object.defineProperty(Object.prototype, 'mergeDeepRight', {
     value(source) {
         for (let item of Object.keys(source)) {
-            if (this.hasOwnProperty(item)) {
+            if (item in this) {
                 if (typeof this[item] !== "object") {
                     this[item] = source[item];
                 } else {
@@ -12,7 +12,7 @@ Object.defineProperty(Object.prototype, 'mergeDeepRight', {
                     }
                 }
             } else {
-                this.item = source[item];
+                this[item] = source[item];
             }
         }
         return this;
