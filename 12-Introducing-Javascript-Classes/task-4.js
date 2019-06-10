@@ -1,7 +1,7 @@
 class MyString {
     reverse(revStr) {
-        var newString = "";
-        for (var i = revStr.length - 1; i >= 0; i--) {
+        let newString = "";
+        for (let i = revStr.length - 1; i >= 0; i--) {
             newString += revStr[i];
         }
         return newString;
@@ -22,7 +22,7 @@ class MyString {
     }
 }
 
-var str = new MyString();
+let str = new MyString();
 
 console.log(str.reverse('abcde')); // print 'edcba'
 console.log(str.ucFirst('abcde')); // print 'Abcde'
