@@ -1,9 +1,10 @@
 class MyString {
     reverse(revStr) {
-        let splitStr = revStr.split("");
-        let reverseStr = splitStr.reverse();
-        let joinStr = reverseStr.join("");
-        return joinStr;
+        var newString = "";
+        for (var i = revStr.length - 1; i >= 0; i--) {
+            newString += revStr[i];
+        }
+        return newString;
     }
 
     ucFirst(capsStr) {
@@ -15,7 +16,7 @@ class MyString {
     ucWords(words) {
         let wordArr = words.split(' ');
         for (let i = 0; i < wordArr.length; i++) {
-            wordArr[i] = wordArr[i].charAt(0).toUpperCase() + wordArr[i].substring(1);
+            wordArr[i] = this.ucFirst(wordArr[i]);
         }
         return wordArr.join(' ');
     }
