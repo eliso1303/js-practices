@@ -5,9 +5,13 @@ class DB {
 
     create(object) {
         if (object || typeof object === "object") {
-            let _id = new Date().getUTCMilliseconds().toString();
-            this.db.set(_id, object);
-            return _id;
+            if (object.name || typeof object.name === 'string' || object.age || typeof object.age === 'number' || object.country || typeof object.country === 'string' || object.salary || typeof object.salary === 'number') {
+                let _id = new Date().getUTCMilliseconds().toString();
+                this.db.set(_id, object);
+                return _id;
+            } else {
+                throw new Error('Invalid property');
+            }
         } else {
             throw new Error('Must be an object');
         }
