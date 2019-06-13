@@ -59,7 +59,6 @@ class DB {
         if (userId || typeof userId === 'string') {
             if (this.db.has(userId)) {
                 this.db.delete(userId);
-                console.log(true);
                 return true;
             } else {
                 throw new Error('There is no such user');
@@ -70,17 +69,17 @@ class DB {
     }
 
     find(query) {
+        let userArr = [];
         if (query || typeof query === "object") {
-            let arr = [];
-
-            this.db.forEach((value, key, ownMap) => {
-                if (this.db.get(key).name === query.country && (this.db.get(key).age.min || this.db.get(key).age.max) && (this.db.get(key).salary.min || this.db.get(key).salary.max)) {
-                    arr.push(this.db.get(key));
-                }
-                return arr;
+            userArr = this.readAll().filter(user => {
+                return (
+                    user.name === query.name &&
+                    user.country === query.country &&
+                    ((query.age.min && query.age.max) ? (user.age >= query.age.min && user.age <= query.age.max) : query.age.min ? (user.age >= query.age.min) : query.age.max ? (user.age <= query.age.max) : false) &&
+                    ((query.salary.min && query.salary.max) ? (user.salary >= query.salary.min && user.salary <= query.salary.max) : query.salary.min ? (user.salary >= query.salary.min) : query.salary.max ? (user.salary <= query.salary.max) : false)
+                );
             });
-
-            return Array;
+            return userArr;
         } else {
             throw new Error("Query is not valid!");
         }
@@ -92,25 +91,21 @@ const db = new DB();
 const person = {
     name: 'Pitter', // required field with type string
     age: 21, // required field with type number
-    country: 'ge', // required field with type string
+    country: 'georgia', // required field with type string
     salary: 500 // required field with type number
 };
 
 const id = db.create(person);
-const customer = db.read(id);
-const customers = db.readAll(); // array of users
-db.update(id, { age: 22 }); // id
-db.delete(id); // true
 
 const query = {
-    country: 'ua',
+    name: 'Pitter',
+    country: 'georgia',
     age: {
         min: 21
     },
     salary: {
-        min: 300,
+        min: 500,
         max: 600
     }
 };
-const customersFind = db.find(query); // array of users
-console.log(customersFind);
+const customers = db.find(query); // array of users
