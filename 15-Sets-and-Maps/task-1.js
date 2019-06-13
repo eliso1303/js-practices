@@ -59,7 +59,6 @@ class DB {
         if (userId || typeof userId === 'string') {
             if (this.db.has(userId)) {
                 this.db.delete(userId);
-                console.log(true);
                 return true;
             } else {
                 throw new Error('There is no such user');
