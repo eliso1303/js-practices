@@ -75,8 +75,13 @@ class DB {
                 return (
                     user.name === query.name &&
                     user.country === query.country &&
-                    ((query.age.min && query.age.max) ? (user.age >= query.age.min && user.age <= query.age.max) : query.age.min ? (user.age >= query.age.min) : query.age.max ? (user.age <= query.age.max) : false) &&
-                    ((query.salary.min && query.salary.max) ? (user.salary >= query.salary.min && user.salary <= query.salary.max) : query.salary.min ? (user.salary >= query.salary.min) : query.salary.max ? (user.salary <= query.salary.max) : false)
+                    ((query.age.min && query.age.max) ? (user.age >= query.age.min && user.age <= query.age.max) : 
+                    query.age.min ? (user.age >= query.age.min) : 
+                    query.age.max ? (user.age <= query.age.max) : false) &&
+
+                    ((query.salary.min && query.salary.max) ? (user.salary >= query.salary.min && user.salary <= query.salary.max) : 
+                    query.salary.min ? (user.salary >= query.salary.min) : 
+                    query.salary.max ? (user.salary <= query.salary.max) : false)
                 );
             });
             return userArr;
@@ -109,3 +114,4 @@ const query = {
     }
 };
 const customers = db.find(query); // array of users
+console.log(customers);
