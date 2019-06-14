@@ -10,8 +10,12 @@ class Countries {
        if (typeof size === "number") {
            return new Promise((resolve, reject) => {
                get(this.url+'?size='+size, (error, meta, body) => {
-                   const { data } = JSON.parse(body);
-                   (meta.status == 200) ? resolve(data) : reject('We have error, status code: ' + meta.status);
+                  if(meta.status == 200){
+                    const { data } = JSON.parse(body);
+                    resolve(data);
+                  }else{
+                    reject('We have error, status code: ' + meta.status);
+                  }
                });
            });
        } else {
