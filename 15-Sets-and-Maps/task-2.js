@@ -10,6 +10,27 @@ class DB {
         return _id;
     }
 
+    validateFields(object) {
+        if (typeof object !== 'object') {
+            throw new Error('Must be an object');
+        }
+
+        const properties = ['name', 'age', 'country', 'salary'];
+
+        for (let i = 0; i < properties.length; i++) {
+            if (!object.hasOwnProperty(properties[i])) {
+                throw new Error(property + ' is required');
+            }
+        }
+
+        if (typeof object.name !== 'string' || typeof object.country !== 'string') {
+            throw new Error('Property required to be string');
+        }
+        if (typeof object.age !== 'number' || typeof object.salary !== 'number') {
+            throw new Error('Property required to be number');
+        }
+    }
+
     read(userId) {
         if (userId || typeof userId === 'string') {
             if (this.db.has(userId)) {
@@ -41,7 +62,7 @@ class DB {
             throw new Error('invalid entry');
         }
 
-        if(changes.name && typeof changes.name !== 'string' || changes.country && typeof changes.country !== 'string') {
+        if (changes.name && typeof changes.name !== 'string' || changes.country && typeof changes.country !== 'string') {
             throw new Error('Property required to be string');
         }
 
@@ -88,19 +109,8 @@ class DB {
             throw new Error('Property required to be string');
         }
         if (typeof object.age !== 'number' || typeof object.salary !== 'number') {
-            if (typeof object.age === 'object' || typeof object.salary === 'object') {
-                var arr = [object.age.min, object.age.max, object.salary.min, object.salary.max];
-                for (let i = 0; i < arr.length; i++) {
-                    if (arr[i]) {
-                        if (typeof arr[i] !== 'number') {
-                            throw new Error('Property required to be number');
-                        }
-                    } else {
-                        throw new Error('Property required to be number ');
-                    }
-                }
-            } else {
-                throw new Error('Property required to be number');
+            if(typeof object.age !== 'object' || typeof object.salary !== 'object' ){
+                throw new Error('Property required to be an object or number');
             }
         }
     }
@@ -112,13 +122,13 @@ class DB {
             return (
                 user.name === query.name &&
                 user.country === query.country &&
-                ((query.age.min && query.age.max) ? (user.age >= query.age.min && user.age <= query.age.max) :
-                    query.age.min ? (user.age >= query.age.min) :
-                        query.age.max ? (user.age <= query.age.max) : false) &&
+                ((query.age.hasOwnProperty('min') && query.age.hasOwnProperty('max')) ? (user.age >= query.age.min && user.age <= query.age.max) :
+                    query.age.hasOwnProperty('min') ? (user.age >= query.age.min) :
+                        query.age.hasOwnProperty('max') ? (user.age <= query.age.max) : false) &&
 
-                ((query.salary.min && query.salary.max) ? (user.salary >= query.salary.min && user.salary <= query.salary.max) :
-                    query.salary.min ? (user.salary >= query.salary.min) :
-                        query.salary.max ? (user.salary <= query.salary.max) : false)
+                ((query.salary.hasOwnProperty('min') && query.salary.hasOwnProperty('max')) ? (user.salary >= query.salary.min && user.salary <= query.salary.max) :
+                    query.salary.hasOwnProperty('min') ? (user.salary >= query.salary.min) :
+                        query.salary.hasOwnProperty('max') ? (user.salary <= query.salary.max) : false)
             );
         });
         return userArr;
