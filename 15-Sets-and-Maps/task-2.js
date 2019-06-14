@@ -4,17 +4,10 @@ class DB {
     }
 
     create(object) {
-        if (object || typeof object === "object") {
-            if (object.name || typeof object.name === 'string' || object.age || typeof object.age === 'number' || object.country || typeof object.country === 'string' || object.salary || typeof object.salary === 'number') {
-                let _id = new Date().getUTCMilliseconds().toString();
-                this.db.set(_id, object);
-                return _id;
-            } else {
-                throw new Error('Invalid property');
-            }
-        } else {
-            throw new Error('Must be an object');
-        }
+        this.validateFields(object);
+        let _id = new Date().getUTCMilliseconds().toString();
+        this.db.set(_id, object);
+        return _id;
     }
 
     read(userId) {
@@ -68,6 +61,27 @@ class DB {
         }
     }
 
+    validateFields(object) {
+        if (typeof object !== 'object') {
+            throw new Error('Must be an object');
+        }
+
+        const properties = ['name', 'age', 'country', 'salary'];
+
+        for (let i = 0; i < properties.length; i++) {
+            if (!object.hasOwnProperty(properties[i])) {
+                throw new Error(property + ' is required');
+            }
+        }
+
+        if (typeof object.name !== 'string' || typeof object.country !== 'string') {
+            throw new Error('Property required to be string');
+        }
+        if (typeof object.age !== 'number' || typeof object.salary !== 'number') {
+            throw new Error('Property required to be number');
+        }
+    }
+
     find(query) {
         let userArr = [];
         if (query || typeof query === "object") {
@@ -75,13 +89,13 @@ class DB {
                 return (
                     user.name === query.name &&
                     user.country === query.country &&
-                    ((query.age.min && query.age.max) ? (user.age >= query.age.min && user.age <= query.age.max) : 
-                    query.age.min ? (user.age >= query.age.min) : 
-                    query.age.max ? (user.age <= query.age.max) : false) &&
+                    ((query.age.min && query.age.max) ? (user.age >= query.age.min && user.age <= query.age.max) :
+                        query.age.min ? (user.age >= query.age.min) :
+                            query.age.max ? (user.age <= query.age.max) : false) &&
 
-                    ((query.salary.min && query.salary.max) ? (user.salary >= query.salary.min && user.salary <= query.salary.max) : 
-                    query.salary.min ? (user.salary >= query.salary.min) : 
-                    query.salary.max ? (user.salary <= query.salary.max) : false)
+                    ((query.salary.min && query.salary.max) ? (user.salary >= query.salary.min && user.salary <= query.salary.max) :
+                        query.salary.min ? (user.salary >= query.salary.min) :
+                            query.salary.max ? (user.salary <= query.salary.max) : false)
                 );
             });
             return userArr;
