@@ -1,26 +1,22 @@
 const isCustomerVerified = (customer) => {
     return new Promise((resolve, reject) => {
-        let status = "Customer is not verified";
-        if(customer.verified === true) {
-            status = true;
-        }
-        return resolve(status);
+        return customer.verified ? resolve(true) : reject("Customer is not verified");
     });
-};
-
-const personFirst = {
+ };
+ 
+ const personFirst = {
     name: 'Oliver',
     verified: true
-};
-
-const personSecond = {
+ };
+ 
+ const personSecond = {
     name: 'Alex'
-};
-
-isCustomerVerified(personFirst)
+ };
+ 
+ isCustomerVerified(personFirst)
     .then(status => console.log(status)) // true
     .catch(error => console.log(error))
-    
-isCustomerVerified(personSecond)
+ 
+ isCustomerVerified(personSecond)
     .then(status => console.log(status))
     .catch(error => console.log(error)) // Customer is not verified
