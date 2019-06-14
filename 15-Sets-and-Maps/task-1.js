@@ -27,20 +27,7 @@ class DB {
             throw new Error('Property required to be string');
         }
         if (typeof object.age !== 'number' || typeof object.salary !== 'number') {
-            if (typeof object.age === 'object' || typeof object.salary === 'object') {
-                var arr = [object.age.min, object.age.max, object.salary.min, object.salary.max];
-                for (let i = 0; i < arr.length; i++) {
-                    if (arr[i]) {
-                        if (typeof arr[i] !== 'number') {
-                            throw new Error('Property required to be number');
-                        } else if (arr[i] <= 1) {
-                            throw new Error('Number must be larger then 0');
-                        }
-                    }
-                }
-            } else {
-                throw new Error('Property required to be number');
-            }
+            throw new Error('Property required to be number');
         }
     }
 
@@ -75,7 +62,7 @@ class DB {
             throw new Error('invalid entry');
         }
 
-        if(changes.name && typeof changes.name !== 'string' || changes.country && typeof changes.country !== 'string') {
+        if (changes.name && typeof changes.name !== 'string' || changes.country && typeof changes.country !== 'string') {
             throw new Error('Property required to be string');
         }
 
