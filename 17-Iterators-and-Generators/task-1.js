@@ -1,14 +1,12 @@
 class Customers {
-    constructor(object) {
-        this.object = object;
+    constructor() {
+        this.customers = [];
     }
 
     add(object) {
         if (object && typeof object === "object") {
-            if (object.name) {
-                if (object.verified) {
-                    return true;
-                }
+            if (object.name && typeof object.name === "string") {
+                this.customers.push(object);
             }
             else {
                 throw new Error("Name is required");
@@ -20,17 +18,15 @@ class Customers {
 
     [Symbol.iterator]() {
         let i = 0;
+        let varifedCustomers = this.customers.filter(customer => customer.verified);
 
         return {
             next() {
-                console.log(this);
-                if (this.add(this.object)) {
-                    const done = i >= items.length;
-                    const value = !done ? items[i++] : undefined;
-                    return {
-                        value,
-                        done
-                    }
+                const done = i >= varifedCustomers.length;
+                const value = !done ? varifedCustomers[i++] : undefined;
+                return {
+                    value,
+                    done
                 }
             }
         }
