@@ -14,6 +14,7 @@ class DB {
         if (userId || typeof userId === 'string') {
             if (this.db.has(userId)) {
                 this.db.get(userId).id = userId;
+                return this.db.get(userId);
             } else {
                 return null;
             }
@@ -22,9 +23,10 @@ class DB {
         }
     }
 
-    readAll(value) {
-        if (!value) {
-            return Array.from(this.db.values());
+    readAll() {
+        if (arguments.length === 0) {
+            let arr = Array.from(this.db.values());
+            return arr;
         } else {
             throw new Error('Please, don\'t set parameter');
         }
@@ -37,6 +39,14 @@ class DB {
 
         if (!changes || typeof changes !== 'object') {
             throw new Error('invalid entry');
+        }
+
+        if(changes.name && typeof changes.name !== 'string' || changes.country && typeof changes.country !== 'string') {
+            throw new Error('Property required to be string');
+        }
+
+        if (changes.age && typeof changes.age !== 'number' || changes.salary && typeof changes.salary !== 'number') {
+            throw new Error('Property required to be number');
         }
 
         if (this.db.has(id)) {
@@ -78,30 +88,40 @@ class DB {
             throw new Error('Property required to be string');
         }
         if (typeof object.age !== 'number' || typeof object.salary !== 'number') {
-            throw new Error('Property required to be number');
+            if (typeof object.age === 'object' || typeof object.salary === 'object') {
+                var arr = [object.age.min, object.age.max, object.salary.min, object.salary.max];
+                for (let i = 0; i < arr.length; i++) {
+                    if (arr[i]) {
+                        if (typeof arr[i] !== 'number') {
+                            throw new Error('Property required to be number');
+                        }
+                    } else {
+                        throw new Error('Property required to be number ');
+                    }
+                }
+            } else {
+                throw new Error('Property required to be number');
+            }
         }
     }
 
     find(query) {
         let userArr = [];
-        if (query || typeof query === "object") {
-            userArr = this.readAll().filter(user => {
-                return (
-                    user.name === query.name &&
-                    user.country === query.country &&
-                    ((query.age.min && query.age.max) ? (user.age >= query.age.min && user.age <= query.age.max) :
-                        query.age.min ? (user.age >= query.age.min) :
-                            query.age.max ? (user.age <= query.age.max) : false) &&
+        this.validateFields(query);
+        userArr = this.readAll().filter(user => {
+            return (
+                user.name === query.name &&
+                user.country === query.country &&
+                ((query.age.min && query.age.max) ? (user.age >= query.age.min && user.age <= query.age.max) :
+                    query.age.min ? (user.age >= query.age.min) :
+                        query.age.max ? (user.age <= query.age.max) : false) &&
 
-                    ((query.salary.min && query.salary.max) ? (user.salary >= query.salary.min && user.salary <= query.salary.max) :
-                        query.salary.min ? (user.salary >= query.salary.min) :
-                            query.salary.max ? (user.salary <= query.salary.max) : false)
-                );
-            });
-            return userArr;
-        } else {
-            throw new Error("Query is not valid!");
-        }
+                ((query.salary.min && query.salary.max) ? (user.salary >= query.salary.min && user.salary <= query.salary.max) :
+                    query.salary.min ? (user.salary >= query.salary.min) :
+                        query.salary.max ? (user.salary <= query.salary.max) : false)
+            );
+        });
+        return userArr;
     }
 }
 
@@ -120,7 +140,7 @@ const query = {
     name: 'Pitter',
     country: 'georgia',
     age: {
-        min: 21
+        min: 0
     },
     salary: {
         min: 500,

@@ -4,16 +4,30 @@ class DB {
     }
 
     create(object) {
-        if (object || typeof object === "object") {
-            if (object.name || typeof object.name === 'string' || object.age || typeof object.age === 'number' || object.country || typeof object.country === 'string' || object.salary || typeof object.salary === 'number') {
-                let _id = new Date().getUTCMilliseconds().toString();
-                this.db.set(_id, object);
-                return _id;
-            } else {
-                throw new Error('Invalid property');
-            }
-        } else {
+        this.validateFields(object);
+        let _id = new Date().getUTCMilliseconds().toString();
+        this.db.set(_id, object);
+        return _id;
+    }
+
+    validateFields(object) {
+        if (typeof object !== 'object') {
             throw new Error('Must be an object');
+        }
+
+        const properties = ['name', 'age', 'country', 'salary'];
+
+        for (let i = 0; i < properties.length; i++) {
+            if (!object.hasOwnProperty(properties[i])) {
+                throw new Error(property + ' is required');
+            }
+        }
+
+        if (typeof object.name !== 'string' || typeof object.country !== 'string') {
+            throw new Error('Property required to be string');
+        }
+        if (typeof object.age !== 'number' || typeof object.salary !== 'number') {
+            throw new Error('Property required to be number');
         }
     }
 
@@ -21,6 +35,7 @@ class DB {
         if (userId || typeof userId === 'string') {
             if (this.db.has(userId)) {
                 this.db.get(userId).id = userId;
+                return this.db.get(userId);
             } else {
                 return null;
             }
@@ -29,9 +44,10 @@ class DB {
         }
     }
 
-    readAll(value) {
-        if (!value) {
-            return Array.from(this.db.values());
+    readAll() {
+        if (arguments.length === 0) {
+            let arr = Array.from(this.db.values());
+            return arr;
         } else {
             throw new Error('Please, don\'t set parameter');
         }
@@ -44,6 +60,14 @@ class DB {
 
         if (!changes || typeof changes !== 'object') {
             throw new Error('invalid entry');
+        }
+
+        if (changes.name && typeof changes.name !== 'string' || changes.country && typeof changes.country !== 'string') {
+            throw new Error('Property required to be string');
+        }
+
+        if (changes.age && typeof changes.age !== 'number' || changes.salary && typeof changes.salary !== 'number') {
+            throw new Error('Property required to be number');
         }
 
         if (this.db.has(id)) {
